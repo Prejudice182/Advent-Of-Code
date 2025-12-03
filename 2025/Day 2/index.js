@@ -33,20 +33,13 @@ const part2 = (data) => {
                 invalid.add(i)
                 continue checkNum
             }
-            const lengthOfNumber = Math.ceil(Math.log10(i + 1))
-            if (lengthOfNumber < 4) continue checkNum
-            if (!factorMap.has(lengthOfNumber)) {
-                const listOfFactors = factorFunc(lengthOfNumber)
-                if (listOfFactors.length > 2) {
-                    listOfFactors.shift()
-                    listOfFactors.pop()
-                } 
-                if (listOfFactors.length > 0) {
-                    factorMap.set(lengthOfNumber, listOfFactors)
-                }
+            if (stringValue.length < 4) continue checkNum
+            if (!factorMap.has(stringValue.length)) {
+                const listOfFactors = factorFunc(stringValue.length).filter(factor => factor !== stringValue.length && factor !== 1)
+                factorMap.set(stringValue.length, listOfFactors)
             }
-            const factors = factorMap.get(lengthOfNumber)
-            if (Math.ceil(Math.log10(i + 1)) % 2 !== 0 && factors.length === 2) continue checkNum
+            const factors = factorMap.get(stringValue.length)
+            if (stringValue.length % 2 !== 0 && factors.length === 2) continue checkNum
             checkFactor: for (const factor of factors) {
                 const pieces = stringValue.split(new RegExp(`(.{${factor}})`)).filter(Boolean)
                 if (pieces.every((value) => value === pieces[0])) {
