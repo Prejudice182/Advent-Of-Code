@@ -1,5 +1,3 @@
-const { diff } = require('node:util')
-
 const input = require('node:fs').readFileSync('input.txt', 'utf8')
 const test = require('node:fs').readFileSync('test.txt', 'utf8')
 
